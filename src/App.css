@@ -1,13 +1,20 @@
 .app{
-
+  max-width: 860px;
+  margin: 40px auto;
 }
 
-/* .boardlocation {
-  display: flex;
-  justify-content: center;
-  margin-top: 70px;
-} */
 
 button{
   cursor: pointer;
+  background: none;
+  color: #fff;
+  padding: 6px 12px;
+  font-weight: bold;
+  size: 1rem;
+  border-radius: 4px;
+  border: 2px solid #fff;
+}
+button:hover{
+  background: #c23866;
+  color: #fff;
 }
