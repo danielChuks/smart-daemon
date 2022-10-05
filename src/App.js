@@ -1,5 +1,7 @@
 import './App.css';
 import React, { useState } from 'react';
+import SingleCard from './components/SingleCard';
+
 
 const cardImages = [
   {"src" : "/img/helmet-1.png"},
@@ -25,23 +27,17 @@ function App(){
   setTurns(0)
   }
 
-console.log(cards, turns)
+  console.log(turns, cards)
   return (
     <>
       <div className='app'>
         <h2>Magic Match</h2>
         <button onClick={shuffleCards}>New Game</button>
-
-        <div className='card-grid'>
-            {cards.map(card => (
-              <div className='card' key={card.id}>
-                  <div>
-                    <img className='font' src={card.src} alt="card front"/>
-                    <img className='cover' src="/img/cover.png" alt='cover'/>
-                  </div>
-              </div>
-            ))}
-        </div>
+          <div className='card-grid'>
+              {cards.map(card => (
+                <SingleCard key={card.id} card={card} />
+              ))}
+          </div>
       </div>
     </>
   );
