@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SingleCard from './components/SingleCard';
 
 
@@ -17,6 +17,9 @@ const cardImages = [
 function App(){
   const [cards, setCards] = useState([])
   const [turns, setTurns] =  useState(0)
+  const [choiceOne, setChoiceOne ] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
+
 
   const shuffleCards = () => {
     const shuffleCards = [...cardImages, ...cardImages]
@@ -27,7 +30,28 @@ function App(){
   setTurns(0)
   }
 
-  console.log(turns, cards)
+  useEffect(() => {
+    if(choiceOne && choiceTwo){
+
+      if(choiceOne.src === choiceTwo.src){
+          console.log("This cards match!!!!")
+          resetTurn();
+      }else{
+        console.log("This cards dont match !!!")
+        resetTurn()
+      }
+    }
+  },[choiceOne, choiceTwo]);
+
+  const resetTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns(prevTurns => prevTurns + 1);
+  }
+
+  const handleChoice = (card) => {
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+  }
   return (
     <>
       <div className='app'>
@@ -35,7 +59,11 @@ function App(){
         <button onClick={shuffleCards}>New Game</button>
           <div className='card-grid'>
               {cards.map(card => (
-                <SingleCard key={card.id} card={card} />
+                <SingleCard 
+                  key={card.id} 
+                  card={card} 
+                  handleChoice={handleChoice}
+                />
               ))}
           </div>
       </div>
