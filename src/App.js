@@ -19,6 +19,7 @@ function App(){
   const [turns, setTurns] =  useState(0)
   const [choiceOne, setChoiceOne ] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
+  const [disabled, setDisabled] =useState(false);
 
 
   const shuffleCards = () => {
@@ -31,6 +32,7 @@ function App(){
   }
 
   useEffect(() => {
+    setDisabled(true)
     if(choiceOne && choiceTwo){
 //We are checking if the both choice the user picked are same and if they are then we setCards using the previous cards function to map
 //map through the previous card and check if the card source and the choice of card the user picked are same and if so, we return a new card array with 
@@ -59,6 +61,7 @@ function App(){
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns(prevTurns => prevTurns + 1);
+    setDisabled(false);
   }
 
   const handleChoice = (card) => {
@@ -76,6 +79,7 @@ function App(){
                   card={card} 
                   handleChoice={handleChoice}
                   flipped={card === choiceOne || card === choiceTwo || card.matched}
+                  disabled={disabled}
                 />
               ))}
           </div>
