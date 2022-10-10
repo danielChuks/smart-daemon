@@ -49,11 +49,10 @@ function App(){
             )
           resetTurn();
       }else{
-        resetTurn()
+        setTimeout(() => resetTurn(), 1000);
       }
     }
-    console.log(cards)  
-  }, [choiceOne, choiceTwo]);
+  }, [cards, choiceOne, choiceTwo]);
  
 
   const resetTurn = () => {
