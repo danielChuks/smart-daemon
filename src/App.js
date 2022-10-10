@@ -33,10 +33,12 @@ function App(){
     //We set each choices to null so on the new start of the came the choicesOne and ChoiceTwo has no values..............
     setChoiceOne(null);
     setChoiceTwo(null);
+    
 
     //..................................
   setCards(shuffleCards);
   setTurns(0);
+  setScores(0);
   }
 
   useEffect(() => {
@@ -85,9 +87,6 @@ useEffect(() => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   }
 
-  //Declaring display variables 
-  const gameTurns= ``
-  const gameEndedDisplay =  ``
 
   return (
     <>
@@ -108,7 +107,7 @@ useEffect(() => {
            <div className='gameDetails'>
             { turns < 5 
               ? <><p>You have played {turns} turns </p> <p>You have {scores} scores</p></> 
-              : <><p>Total Turns Played: ${turns} Scores: ${scores}</p></>
+              : <><p>Total Turns Played: {turns}</p> <p>Scores: {scores}</p></>
             }
             </div>
       </div>
