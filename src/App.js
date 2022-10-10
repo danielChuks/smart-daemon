@@ -1,6 +1,8 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import SingleCard from './components/SingleCard';
+import GameOver from './components/GameOver';
+
 
 
 const cardImages = [
@@ -20,6 +22,7 @@ function App(){
   const [choiceOne, setChoiceOne ] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] =useState(false);
+  const [scores, setScores] = useState(0)
 
 
   const shuffleCards = () => {
@@ -27,13 +30,19 @@ function App(){
     .sort(() => Math.random() - 0.5)
     .map((card) => ({...card, id: Math.random()}))
 
+    //We set each choices to null so on the new start of the came the choicesOne and ChoiceTwo has no values..............
+    setChoiceOne(null);
+    setChoiceTwo(null);
+
+    //..................................
   setCards(shuffleCards);
   setTurns(0);
   }
 
   useEffect(() => {
-    setDisabled(true)
     if(choiceOne && choiceTwo){
+//disabled is set to true because we dont want any of the card to be clickable when we already have choiceOne and choiceTwo....
+      setDisabled(true)
 //We are checking if the both choice the user picked are same and if they are then we setCards using the previous cards function to map
 //map through the previous card and check if the card source and the choice of card the user picked are same and if so, we return a new card array with 
 //the value of the selected cards by the user mapped to true.
@@ -42,8 +51,9 @@ function App(){
           setCards(prevCards => {
             return prevCards.map(card => {
               if(card.src === choiceOne.src){
-                return {...card, matched: true }
-              }else{
+                setScores(scores + 1)
+                return {...card, matched: true}
+              }else{ 
                 return card;
               }
             })
@@ -60,13 +70,25 @@ function App(){
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
-    setTurns(prevTurns => prevTurns + 1);
+    setTurns(prevTurns => prevTurns + 1)
     setDisabled(false);
   }
 
+
+//This useEffect Automatically starts the came so on loading the page the user gets to see all the cards.................
+useEffect(() => {
+  shuffleCards()
+}, [])
+//......................................................
+
   const handleChoice = (card) => {
-    choiceOne ? setChoiceTwo(card) : setChoiceOne(card)
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   }
+
+  //Declaring display variables 
+  const gameTurns= ``
+  const gameEndedDisplay =  ``
+
   return (
     <>
       <div className='app'>
@@ -83,9 +105,15 @@ function App(){
                 />
               ))}
           </div>
+           <div className='gameDetails'>
+            { turns < 5 
+              ? <><p>You have played {turns} turns </p> <p>You have {scores} scores</p></> 
+              : <><p>Total Turns Played: ${turns} Scores: ${scores}</p></>
+            }
+            </div>
       </div>
     </>
   );
-} 
+}
 
 export default App;

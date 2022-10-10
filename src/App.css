@@ -25,3 +25,11 @@ button:hover{
   grid-template-columns: 1fr  1fr  1fr  1fr;
   grid-gap: 20px ;
 }
+
+.gameDetails {
+  display: flex;
+  margin-top: 15px;
+  justify-content: space-around;
+}
+
+

@@ -1,10 +1,13 @@
 import React from "react"
 import './SingleCard.css'
 
-function singleCard ({ card, handleChoice, flipped }){
+function singleCard ({ card, handleChoice, flipped, disabled }){
 
     const handleClick = () => { 
-        handleChoice(card)
+        //if disabled is true we dont want to allow the user to make a different choice.....but if its false we allow the user to make a choice
+        if(!disabled){
+            handleChoice(card);
+        }   
     }
 
     return(
@@ -12,7 +15,7 @@ function singleCard ({ card, handleChoice, flipped }){
              <div className={flipped ? "flipped" : ""}>
                 <img className='front' src={card.src} alt="card front"/>
                 <img 
-                    className='cover' 
+                    className='back' 
                     src="/img/cover.png" 
                     alt='cover'
                     onClick={handleClick}
