@@ -113,7 +113,7 @@ useEffect(() => {
            <div className='gameDetails'>
             { turns < playLimit 
               ? <><p>You have played {turns} turns </p> <p>You have {scores} scores</p></> 
-              : <><p>Total Turns Played: {turns}</p> <p>Scores: {scores}</p></>
+              : <><p className='gameOver'>Game Over </p> <p className='gameOver'> Your Total Score: {scores}</p></>
             }
             </div>
       </div>

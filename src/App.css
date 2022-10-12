@@ -32,4 +32,12 @@ button:hover{
   justify-content: space-around;
 }
 
+.gameOver{
+  animation: blink 2s step-start infinite;
+}
 
+@keyframes blink {
+  50% {
+      opacity: 0 ;
+  }
+}
