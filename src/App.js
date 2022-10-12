@@ -1,7 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import SingleCard from './components/SingleCard';
-import GameOver from './components/GameOver';
 
 
 
@@ -14,14 +13,14 @@ const cardImages = [
   {"src" : "/img/sword-1.png", matched: false}
 ]
 
-
+const playLimit = 5;
 
 function App(){
   const [cards, setCards] = useState([])
   const [turns, setTurns] =  useState(0)
   const [choiceOne, setChoiceOne ] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
-  const [disabled, setDisabled] =useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [scores, setScores] = useState(0)
 
 
@@ -76,6 +75,13 @@ function App(){
     setDisabled(false);
   }
 
+  useEffect(() => {
+    if(turns < playLimit){
+      setDisabled(false)
+    }else{
+      setDisabled(true)
+    }
+  }, [turns])
 
 //This useEffect Automatically starts the came so on loading the page the user gets to see all the cards.................
 useEffect(() => {
@@ -105,7 +111,7 @@ useEffect(() => {
               ))}
           </div>
            <div className='gameDetails'>
-            { turns < 5 
+            { turns < playLimit 
               ? <><p>You have played {turns} turns </p> <p>You have {scores} scores</p></> 
               : <><p>Total Turns Played: {turns}</p> <p>Scores: {scores}</p></>
             }
